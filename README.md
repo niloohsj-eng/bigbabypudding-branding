@@ -21,10 +21,18 @@ fonts/
 build_grid_mockup.py            Renders the 3x3 IG grid plan
 build_profile_mockup.py         Renders the full IG profile page (header + bio + grid)
 build_card.py                   Renders the Deliveroo bag-insert business card
+build_shoot_brief.py            Renders the visual shoot brief for the 6 missing tiles
+build_post.py                   Auto-removes bg from a phone photo, drops onto brand bg
+
+photos_in/                      Drop raw phone photos here
+photos_out/                     Instagram-ready 1080x1080 PNGs land here
+
+posting_plan.md                 Captions, schedule, and posting order for the 9 tiles
 
 grid_mockup.png                 Output: 3x3 grid plan
 profile_mockup.png              Output: full IG profile mockup
 card_mockup.png                 Output: business card (UK 85x55mm @ 600dpi)
+shoot_brief.png                 Output: visual brief for the 6 photos you take yourself
 ```
 
 ## Locked brand rules
@@ -63,6 +71,28 @@ python3 build_profile_mockup.py
 ```
 
 The scripts look for `Bradley Hand Bold.ttf` in `fonts/` first, then fall back to the macOS system copy at `/System/Library/Fonts/Supplemental/`. Either path works.
+
+## Photo workflow
+
+For the six tiles that need real photos (#1, #3, #4, #6, #7, #9), open `shoot_brief.png` for the visual reference. Shoot on iPhone, plain background, natural daylight. Then drop the photo into `photos_in/` and run:
+
+```bash
+python3 build_post.py photos_in/IMG_1234.jpg --bg brown
+python3 build_post.py photos_in/IMG_1234.jpg --bg cream
+```
+
+The script auto-removes the background (using rembg) and centers the subject on a 1080x1080 brand-color canvas. Output lands in `photos_out/`.
+
+If you'd rather cut out the subject yourself (faster, cleaner control):
+- **iPhone**: open the photo, long-press the subject, tap "Copy Subject", paste into Notes or Files, save as PNG.
+- **Mac Preview**: open photo, choose Tools -> Instant Alpha, brush to remove background, save as PNG with transparency.
+
+Then run with `--no-cutout`:
+```bash
+python3 build_post.py photos_in/IMG_1234.png --bg brown --no-cutout
+```
+
+For posting cadence, captions, and the exact order to upload the 9 tiles, see `posting_plan.md`.
 
 ## Print specs
 
