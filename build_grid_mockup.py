@@ -4,6 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 B = ROOT / "branding"
+FONTS = ROOT / "fonts"
 OUT = ROOT / "grid_mockup.png"
 
 CREAM = "#fffae2"
@@ -14,18 +15,16 @@ TILE = 720
 GAP = 6
 GRID = TILE * 3 + GAP * 2
 
+BRADLEY_PATHS = [
+    FONTS / "Bradley Hand Bold.ttf",
+    Path("/System/Library/Fonts/Supplemental/Bradley Hand Bold.ttf"),
+]
+BRADLEY = next((str(p) for p in BRADLEY_PATHS if p.exists()), None)
+if BRADLEY is None:
+    raise SystemExit("Bradley Hand Bold not found. Expected at fonts/Bradley Hand Bold.ttf")
+
 def font(size, weight="Regular"):
-    candidates = [
-        f"/System/Library/Fonts/Supplemental/Marker Felt.ttc",
-        f"/System/Library/Fonts/Avenir Next Condensed.ttc",
-        f"/System/Library/Fonts/Helvetica.ttc",
-    ]
-    for c in candidates:
-        try:
-            return ImageFont.truetype(c, size)
-        except Exception:
-            continue
-    return ImageFont.load_default()
+    return ImageFont.truetype(BRADLEY, size)
 
 def tile_solid(color, label, sub=None, asset=None, asset_scale=0.7, asset_offset=(0,0)):
     img = Image.new("RGB", (TILE, TILE), color)

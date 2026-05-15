@@ -4,6 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 B = ROOT / "branding"
+FONTS = ROOT / "fonts"
 GRID_PNG = ROOT / "grid_mockup.png"
 OUT = ROOT / "profile_mockup.png"
 
@@ -19,22 +20,16 @@ ICON_GREY = "#262626"
 W = 1170
 PAD = 40
 
+BRADLEY_PATHS = [
+    FONTS / "Bradley Hand Bold.ttf",
+    Path("/System/Library/Fonts/Supplemental/Bradley Hand Bold.ttf"),
+]
+BRADLEY = next((str(p) for p in BRADLEY_PATHS if p.exists()), None)
+if BRADLEY is None:
+    raise SystemExit("Bradley Hand Bold not found. Expected at fonts/Bradley Hand Bold.ttf")
+
 def font(size, kind="regular"):
-    paths = {
-        "regular": "/System/Library/Fonts/Helvetica.ttc",
-        "bold": "/System/Library/Fonts/Helvetica.ttc",
-        "italic": "/System/Library/Fonts/Helvetica.ttc",
-        "script": "/Library/Fonts/Arial.ttf",
-    }
-    candidates = ["/System/Library/Fonts/Helvetica.ttc",
-                  "/System/Library/Fonts/Supplemental/Arial.ttf",
-                  "/Library/Fonts/Arial.ttf"]
-    for p in candidates:
-        try:
-            return ImageFont.truetype(p, size)
-        except Exception:
-            continue
-    return ImageFont.load_default()
+    return ImageFont.truetype(BRADLEY, size)
 
 def circle_crop(im, size):
     im = im.convert("RGBA")
