@@ -9,8 +9,7 @@ OUT = ROOT / "profile_mockup.png"
 
 CREAM = "#fffae2"
 BROWN = "#39251c"
-BLUE = "#c2dff6"
-# RESTRICTED palette: only cream / brown / blue. Yellow + tan + pink not used.
+# LOCKED two-color palette: cream + brown only. Yellow + blue + tan + pink not used as backgrounds.
 WHITE = "#ffffff"
 LIGHT_GREY = "#dbdbdb"
 GREY_TEXT = "#737373"

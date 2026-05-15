@@ -8,8 +8,7 @@ OUT = ROOT / "grid_mockup.png"
 
 CREAM = "#fffae2"
 BROWN = "#39251c"
-BLUE = "#c2dff6"
-# RESTRICTED palette: only cream / brown / blue. Yellow + tan + pink not used.
+# LOCKED two-color palette: cream + brown only. Yellow + blue + tan + pink not used as backgrounds.
 
 TILE = 720
 GAP = 6
@@ -89,14 +88,14 @@ bbox = d.textbbox((0, 0), text, font=f)
 d.text(((TILE - (bbox[2] - bbox[0])) // 2, TILE - 160), text, fill=BROWN, font=f)
 t5 = t5_bg
 
-# Tile 6: Notting Hill street lifestyle (placeholder) — blue accent
-t6 = tile_placeholder(BLUE, ["TILE 6", "Notting Hill", "pastel street +", "cup in hand"])
+# Tile 6: Notting Hill street lifestyle (placeholder)
+t6 = tile_placeholder(BROWN, ["TILE 6", "Notting Hill", "pastel street +", "cup in hand"], accent=CREAM)
 
 # Tile 7: Process / overhead pudding being made (placeholder)
 t7 = tile_placeholder(CREAM, ["TILE 7", "Process shot:", "banana slices,", "wafer layers"])
 
-# Tile 8: Reel cover — "ON DELIVEROO" announcement on baby blue
-t8_bg = Image.new("RGB", (TILE, TILE), BLUE)
+# Tile 8: Reel cover — "ON DELIVEROO" announcement on cream
+t8_bg = Image.new("RGB", (TILE, TILE), CREAM)
 sleep = Image.open(B / "Little Bananas/Banana_1.png").convert("RGBA")
 ratio = (TILE * 0.42) / sleep.width
 sleep = sleep.resize((int(sleep.width * ratio), int(sleep.height * ratio)), Image.LANCZOS)
