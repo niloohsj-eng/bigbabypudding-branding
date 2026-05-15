@@ -103,15 +103,15 @@ process = real(POSTS / "tile_07_process.png") if (POSTS / "tile_07_process.png")
 
 # New diagonal arrangement: graphics at 1, 5, 9
 grid_positions = [
-    build_logo_tile(),                                   # pos 1 — graphic
-    hand_held,                                           # pos 2 — photo
-    macro,                                               # pos 3 — photo
-    process,                                             # pos 4 — photo
-    build_peel_w11_tile(),                               # pos 5 — graphic
-    placeholder(CREAM, ["Cup stack", "(waiting for", "new cups)"]),  # pos 6
-    placeholder(CREAM, ["Notting Hill", "street", "(pending)"]),     # pos 7
-    placeholder(CREAM, ["Spoon lift", "(pending)"]),                 # pos 8
-    build_deliveroo_tile(),                              # pos 9 — graphic
+    build_logo_tile(),                                   # pos 1 — cream graphic
+    hand_held,                                           # pos 2 — cream photo
+    macro,                                               # pos 3 — cream photo
+    process,                                             # pos 4 — BROWN photo (process on brown bg)
+    build_peel_w11_tile(),                               # pos 5 — cream graphic
+    placeholder(BROWN, ["Cup stack", "(waiting for", "new cups)"], accent=CREAM),  # pos 6 — BROWN
+    placeholder(CREAM, ["Notting Hill", "street", "(pending)"]),     # pos 7 — cream
+    placeholder(BROWN, ["Spoon lift", "(pending)"], accent=CREAM),   # pos 8 — BROWN
+    build_deliveroo_tile(),                              # pos 9 — cream graphic
 ]
 
 grid = Image.new("RGB", (GRID, GRID), "white")
