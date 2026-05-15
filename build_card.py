@@ -23,17 +23,16 @@ LEFT_W = 820
 RIGHT_X0 = LEFT_W
 RIGHT_W = W - LEFT_W
 
-def font(size):
-    for c in [
-        "/System/Library/Fonts/Helvetica.ttc",
-        "/Library/Fonts/Arial.ttf",
-        "/System/Library/Fonts/Supplemental/Arial.ttf",
-    ]:
-        try:
-            return ImageFont.truetype(c, size)
-        except Exception:
-            continue
-    return ImageFont.load_default()
+BRADLEY = "/System/Library/Fonts/Supplemental/Bradley Hand Bold.ttf"
+CHALK = "/System/Library/Fonts/Supplemental/ChalkboardSE.ttc"
+
+def font_display(size):
+    """Bradley Hand Bold — matches the brush-script logo for headlines."""
+    return ImageFont.truetype(BRADLEY, size)
+
+def font_body(size):
+    """Chalkboard SE Bold — hand-drawn but readable for body."""
+    return ImageFont.truetype(CHALK, size, index=2)
 
 def text_size(d, text, fnt):
     bbox = d.textbbox((0, 0), text, font=fnt)
@@ -85,17 +84,18 @@ card.paste(mark, (mark_x, mark_y), mark)
 # ---- RIGHT: offer copy ----
 # Vertically center the whole text block within the right column
 
-f_hook = font(64)
-f_offer_big = font(220)
-f_offer_sub = font(82)
-f_body = font(46)
-f_handle = font(54)
+f_hook = font_display(78)
+f_offer_big = font_display(180)
+f_offer_sub = font_display(82)
+f_body = font_body(44)
+f_handle = font_display(64)
 
 hook = "Loved it?"
-big = "20% OFF"
+big = "£2.50 OFF"
 sub = "your next batch."
-body = ("Leave us a review on Deliveroo and DM the screenshot "
-        "to @bigbabypudding. We'll send your code within 24 hours.")
+body = ("Leave a Deliveroo review with a written comment. "
+        "Stars alone won't count! DM the screenshot to "
+        "@bigbabypudding for your credit.")
 
 # Compute heights
 _, hook_h = text_size(d, hook, f_hook)
@@ -106,10 +106,10 @@ _, body_line_h = text_size(d, "Ay", f_body)
 body_total_h = len(body_lines) * (body_line_h + 16) - 16
 _, handle_h = text_size(d, "@bigbabypudding", f_handle)
 
-GAP_HOOK_BIG = 20
-GAP_BIG_SUB = 25
-GAP_SUB_BODY = 60
-GAP_BODY_HANDLE = 60
+GAP_HOOK_BIG = 40
+GAP_BIG_SUB = 90
+GAP_SUB_BODY = 70
+GAP_BODY_HANDLE = 50
 
 total = (hook_h + GAP_HOOK_BIG + big_h + GAP_BIG_SUB + sub_h
          + GAP_SUB_BODY + body_total_h + GAP_BODY_HANDLE + handle_h)
