@@ -8,11 +8,9 @@ GRID_PNG = ROOT / "grid_mockup.png"
 OUT = ROOT / "profile_mockup.png"
 
 CREAM = "#fffae2"
-YELLOW = "#ffe256"
-TAN = "#d29356"
 BROWN = "#39251c"
-PINK = "#ea5995"
 BLUE = "#c2dff6"
+# RESTRICTED palette: only cream / brown / blue. Yellow + tan + pink not used.
 WHITE = "#ffffff"
 LIGHT_GREY = "#dbdbdb"
 GREY_TEXT = "#737373"
@@ -65,8 +63,8 @@ d.line([(0, NAV_H - 2), (W, NAV_H - 2)], fill=LIGHT_GREY, width=2)
 # ---- Profile pic with gradient ring ----
 PP_SIZE = 280
 RING = 12
-# Build profile pic from sleepy character on yellow circle
-pp_bg = Image.new("RGBA", (PP_SIZE, PP_SIZE), YELLOW)
+# Build profile pic from sleepy character on cream circle
+pp_bg = Image.new("RGBA", (PP_SIZE, PP_SIZE), CREAM)
 char = Image.open(B / "Character/Character.png").convert("RGBA")
 ratio = (PP_SIZE * 0.78) / max(char.size)
 char = char.resize((int(char.width * ratio), int(char.height * ratio)), Image.LANCZOS)
@@ -129,8 +127,8 @@ HL_ASSETS = [peel, sleep, walk, peel, char_small, sleep]
 start_x = PAD + 30
 gap = 50
 for i, (lbl, asset) in enumerate(zip(HL_LABELS, HL_ASSETS)):
-    # build a yellow circle with the asset centered
-    disc = Image.new("RGBA", (HL_SIZE, HL_SIZE), YELLOW)
+    # build a cream circle with the asset centered
+    disc = Image.new("RGBA", (HL_SIZE, HL_SIZE), CREAM)
     a = asset.copy()
     r = (HL_SIZE * 0.62) / max(a.size)
     a = a.resize((int(a.width * r), int(a.height * r)), Image.LANCZOS)

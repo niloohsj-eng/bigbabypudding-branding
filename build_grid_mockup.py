@@ -7,11 +7,9 @@ B = ROOT / "branding"
 OUT = ROOT / "grid_mockup.png"
 
 CREAM = "#fffae2"
-YELLOW = "#ffe256"
-TAN = "#d29356"
 BROWN = "#39251c"
-PINK = "#ea5995"
 BLUE = "#c2dff6"
+# RESTRICTED palette: only cream / brown / blue. Yellow + tan + pink not used.
 
 TILE = 720
 GAP = 6
@@ -69,8 +67,8 @@ def tile_placeholder(bg, label_lines, accent=BROWN):
 # Tile 1: Hand-held hero (placeholder — needs real photo)
 t1 = tile_placeholder(BROWN, ["TILE 1", "Hand holding cup", "wrap visible", "soft daylight"], accent=CREAM)
 
-# Tile 2: Logo on yellow (full brand poster)
-t2 = tile_solid(YELLOW, "", asset="Logo/Logo_w_Character.png", asset_scale=0.78)
+# Tile 2: Logo on cream (full brand poster)
+t2 = tile_solid(CREAM, "", asset="Logo/Logo_w_Character.png", asset_scale=0.78)
 
 # Tile 3: Macro pudding texture (placeholder)
 t3 = tile_placeholder(CREAM, ["TILE 3", "Macro close-up", "of pudding layers", "no text, no logo"])
@@ -91,14 +89,14 @@ bbox = d.textbbox((0, 0), text, font=f)
 d.text(((TILE - (bbox[2] - bbox[0])) // 2, TILE - 160), text, fill=BROWN, font=f)
 t5 = t5_bg
 
-# Tile 6: Notting Hill street lifestyle (placeholder)
-t6 = tile_placeholder(TAN, ["TILE 6", "Notting Hill", "pastel street +", "cup in hand"])
+# Tile 6: Notting Hill street lifestyle (placeholder) — blue accent
+t6 = tile_placeholder(BLUE, ["TILE 6", "Notting Hill", "pastel street +", "cup in hand"])
 
 # Tile 7: Process / overhead pudding being made (placeholder)
 t7 = tile_placeholder(CREAM, ["TILE 7", "Process shot:", "banana slices,", "wafer layers"])
 
-# Tile 8: Reel cover — "ON DELIVEROO" announcement on yellow
-t8_bg = Image.new("RGB", (TILE, TILE), YELLOW)
+# Tile 8: Reel cover — "ON DELIVEROO" announcement on baby blue
+t8_bg = Image.new("RGB", (TILE, TILE), BLUE)
 sleep = Image.open(B / "Little Bananas/Banana_1.png").convert("RGBA")
 ratio = (TILE * 0.42) / sleep.width
 sleep = sleep.resize((int(sleep.width * ratio), int(sleep.height * ratio)), Image.LANCZOS)
