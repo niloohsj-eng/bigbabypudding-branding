@@ -13,7 +13,7 @@ The signature "Wednesday post" content. Brown line art on cream, occasional yell
 | `illust_01_anatomy.png` | Cup with arrows labeling each layer | *Now you know.* | Great as a **pinned post** — explains the product |
 | `illust_02_step_by_step.png` | 3-panel comic: dip → scoop → empty | *Step-by-step.* | Anytime — universally cute |
 | `illust_03_wafer_face.png` | Single wafer biscuit with a cute face | *Wafer you been all my life?* | Use sparingly — the pun is the whole bit |
-| `illust_04_picky_banana.png` | Banana being inspected with magnifying glass | *We're picky for a reason.* | Quality / sourcing message |
+| `illust_04_picky_banana.png` | 3 bananas — green (unripe), golden (perfect, chosen with face), brown-spotted (overripe) | *We're picky for a reason.* | Quality / ripeness story. Suggested caption longer-form: *Unripe = no flavour. Overripe = dark in the pudding. We pick the middle one.* |
 | `illust_05_cream_weather.png` | Sun + cup with cream "steam" | *Cream weather.* | Sunny days, brunch crowd |
 | `illust_06_sunday_in.png` | Rain cloud + cup with umbrella | *Sunday in.* | Rainy Sundays, cozy vibe |
 | `illust_07_clock.png` | Clock showing morning + cup | *Fresh from this morning.* | Monday mornings, batch-day reminders |
