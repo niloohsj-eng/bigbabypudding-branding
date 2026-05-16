@@ -61,49 +61,74 @@ def placeholder(bg, lines, accent=BROWN):
         y += 70 if i == 0 else 42
     return img
 
+def add_brown_baseline(img, y_from_bottom=80, width=5, length_ratio=0.45):
+    """Add a subtle brown horizontal line near the bottom of a cream tile —
+    structural element to add contrast without breaking the minimal feel."""
+    d = ImageDraw.Draw(img)
+    y = TILE - y_from_bottom
+    line_len = int(TILE * length_ratio)
+    x1 = (TILE - line_len) // 2
+    x2 = x1 + line_len
+    d.line([(x1, y), (x2, y)], fill=BROWN, width=width)
+    return img
+
 def build_logo_tile():
     img = Image.new("RGB", (TILE, TILE), CREAM)
     a = Image.open(B / "Logo/Logo_w_Character.png").convert("RGBA")
-    target_w = int(TILE * 0.78)
+    target_w = int(TILE * 0.72)
     ratio = target_w / a.width
     a = a.resize((target_w, int(a.height * ratio)), Image.LANCZOS)
-    img.paste(a, ((TILE - a.width) // 2, (TILE - a.height) // 2), a)
+    img.paste(a, ((TILE - a.width) // 2, (TILE - a.height) // 2 - 30), a)
+    # Brown baseline accent
+    add_brown_baseline(img, y_from_bottom=120, width=5, length_ratio=0.35)
+    # Subtle tagline below
+    d = ImageDraw.Draw(img)
+    f = font(34)
+    tag = "Notting Hill, W8"
+    bbox = d.textbbox((0, 0), tag, font=f)
+    d.text(((TILE - (bbox[2] - bbox[0])) // 2, TILE - 90), tag, fill=BROWN, font=f)
     return img
 
 def build_peel_w11_tile():
     img = Image.new("RGB", (TILE, TILE), CREAM)
     peel = Image.open(B / "Little Bananas/Banana_3.png").convert("RGBA")
-    ratio = (TILE * 0.55) / peel.width
+    ratio = (TILE * 0.50) / peel.width
     peel = peel.resize((int(peel.width * ratio), int(peel.height * ratio)), Image.LANCZOS)
-    img.paste(peel, ((TILE - peel.width) // 2, 90), peel)
+    img.paste(peel, ((TILE - peel.width) // 2, 110), peel)
     d = ImageDraw.Draw(img)
-    f = font(64)
+    f = font(58)
     text = "Made fresh in W8."
     bbox = d.textbbox((0, 0), text, font=f)
-    d.text(((TILE - (bbox[2] - bbox[0])) // 2, TILE - 160), text, fill=BROWN, font=f)
+    d.text(((TILE - (bbox[2] - bbox[0])) // 2, TILE - 200), text, fill=BROWN, font=f)
+    # Brown baseline accent under text
+    add_brown_baseline(img, y_from_bottom=130, width=4, length_ratio=0.30)
     return img
 
 def build_deliveroo_tile():
     """Fixed: text fully at top, banana fully at bottom, no overlap."""
     img = Image.new("RGB", (TILE, TILE), CREAM)
     d = ImageDraw.Draw(img)
-    f1 = font(68)
-    f2 = font(48)
+    f1 = font(62)
+    f2 = font(44)
     # Text block — all in upper half
     text_block = [
-        ("Fresh stock", f1, 70),
-        ("Mon-Fri", f1, 150),
-        ("on Deliveroo", f2, 240),
+        ("Fresh stock", f1, 75),
+        ("Mon-Fri", f1, 145),
+        ("on Deliveroo", f2, 230),
     ]
     for txt, fnt, y in text_block:
         bbox = d.textbbox((0, 0), txt, font=fnt)
         d.text(((TILE - (bbox[2] - bbox[0])) // 2, y), txt, fill=BROWN, font=fnt)
-    # Banana — bottom half, smaller, clear separation
+    # Subtle brown divider between text and banana
+    div_y = 320
+    div_len = int(TILE * 0.30)
+    d.line([((TILE - div_len) // 2, div_y), ((TILE + div_len) // 2, div_y)], fill=BROWN, width=4)
+    # Banana — bottom half
     sleep = Image.open(B / "Little Bananas/Banana_1.png").convert("RGBA")
-    target_w = int(TILE * 0.34)
+    target_w = int(TILE * 0.32)
     ratio = target_w / sleep.width
     sleep = sleep.resize((target_w, int(sleep.height * ratio)), Image.LANCZOS)
-    img.paste(sleep, ((TILE - sleep.width) // 2, TILE - sleep.height - 60), sleep)
+    img.paste(sleep, ((TILE - sleep.width) // 2, TILE - sleep.height - 80), sleep)
     return img
 
 # Photos and illustrated tiles
