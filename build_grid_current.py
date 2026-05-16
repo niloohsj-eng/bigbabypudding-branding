@@ -1,12 +1,13 @@
 """Render the CURRENT state of the IG grid.
 
-New layout: graphics distributed on the DIAGONAL (pos 1, 5, 9) so they appear in
-every row and every column — never stacked in a single column.
+Layout principle: no two pudding photos are edge-adjacent.
+- Pudding photos at corners + center (positions 1, 3, 5, 7, 9)
+- Non-pudding tiles (graphics + lifestyle) at edges (positions 2, 4, 6, 8)
 
 Grid (3x3, top-left -> bottom-right):
-  1: Logo poster (graphic)        2: Hand-held hero        3: Macro pudding
-  4: Process shot                 5: Peel + W11 (graphic)  6: Cup stack (pending)
-  7: Notting Hill (pending)       8: Spoon lift (pending)  9: Deliveroo (graphic)
+  1: Macro (pudding, cream)        2: Logo poster (graphic)         3: Cup stack (pudding, BROWN)
+  4: Peel + W11 (graphic)          5: Hand-held hero (pudding, cream) 6: Deliveroo (graphic)
+  7: Process (pudding, BROWN)      8: Notting Hill (lifestyle, cream) 9: Spoon lift (pudding, BROWN)
 """
 from PIL import Image, ImageDraw, ImageFont
 from pathlib import Path
@@ -83,35 +84,44 @@ def build_peel_w11_tile():
     return img
 
 def build_deliveroo_tile():
+    """Fixed: text fully at top, banana fully at bottom, no overlap."""
     img = Image.new("RGB", (TILE, TILE), CREAM)
-    sleep = Image.open(B / "Little Bananas/Banana_1.png").convert("RGBA")
-    ratio = (TILE * 0.42) / sleep.width
-    sleep = sleep.resize((int(sleep.width * ratio), int(sleep.height * ratio)), Image.LANCZOS)
-    img.paste(sleep, ((TILE - sleep.width) // 2, TILE - sleep.height - 90), sleep)
     d = ImageDraw.Draw(img)
-    f1 = font(78)
-    f2 = font(52)
-    for txt, fnt, y in [("Fresh stock", f1, 120), ("Mon-Fri", f1, 210), ("on Deliveroo", f2, 320)]:
+    f1 = font(68)
+    f2 = font(48)
+    # Text block — all in upper half
+    text_block = [
+        ("Fresh stock", f1, 70),
+        ("Mon-Fri", f1, 150),
+        ("on Deliveroo", f2, 240),
+    ]
+    for txt, fnt, y in text_block:
         bbox = d.textbbox((0, 0), txt, font=fnt)
         d.text(((TILE - (bbox[2] - bbox[0])) // 2, y), txt, fill=BROWN, font=fnt)
+    # Banana — bottom half, smaller, clear separation
+    sleep = Image.open(B / "Little Bananas/Banana_1.png").convert("RGBA")
+    target_w = int(TILE * 0.34)
+    ratio = target_w / sleep.width
+    sleep = sleep.resize((target_w, int(sleep.height * ratio)), Image.LANCZOS)
+    img.paste(sleep, ((TILE - sleep.width) // 2, TILE - sleep.height - 60), sleep)
     return img
 
-# Real photos that already exist
-hand_held = real(POSTS / "tile_01_handheld_hero.png") if (POSTS / "tile_01_handheld_hero.png").exists() else placeholder(CREAM, ["Hand-held", "hero", "(pending)"])
+# Photos
 macro = real(POSTS / "tile_03_macro.png") if (POSTS / "tile_03_macro.png").exists() else placeholder(CREAM, ["Macro", "(pending)"])
-process = real(POSTS / "tile_07_process.png") if (POSTS / "tile_07_process.png").exists() else placeholder(CREAM, ["Process", "(pending)"])
+hand_held = real(POSTS / "tile_01_handheld_hero.png") if (POSTS / "tile_01_handheld_hero.png").exists() else placeholder(CREAM, ["Hand-held", "(pending)"])
+process = real(POSTS / "tile_07_process.png") if (POSTS / "tile_07_process.png").exists() else placeholder(BROWN, ["Process", "(pending)"], accent=CREAM)
 
-# New diagonal arrangement: graphics at 1, 5, 9
+# Grid order matches positions 1-9 (top-left to bottom-right)
 grid_positions = [
-    build_logo_tile(),                                   # pos 1 — cream graphic
-    hand_held,                                           # pos 2 — cream photo
-    macro,                                               # pos 3 — cream photo
-    process,                                             # pos 4 — BROWN photo (process on brown bg)
-    build_peel_w11_tile(),                               # pos 5 — cream graphic
-    placeholder(BROWN, ["Cup stack", "(waiting for", "new cups)"], accent=CREAM),  # pos 6 — BROWN
-    placeholder(CREAM, ["Notting Hill", "street", "(pending)"]),     # pos 7 — cream
-    placeholder(BROWN, ["Spoon lift", "(pending)"], accent=CREAM),   # pos 8 — BROWN
-    build_deliveroo_tile(),                              # pos 9 — cream graphic
+    macro,                                                                        # 1: pudding cream
+    build_logo_tile(),                                                            # 2: graphic
+    placeholder(BROWN, ["Cup stack", "(waiting for", "new cups)"], accent=CREAM), # 3: pudding brown placeholder
+    build_peel_w11_tile(),                                                        # 4: graphic
+    hand_held,                                                                    # 5: pudding cream (center anchor)
+    build_deliveroo_tile(),                                                       # 6: graphic
+    process,                                                                      # 7: pudding brown
+    placeholder(CREAM, ["Notting Hill", "street", "(pending)"]),                  # 8: lifestyle cream
+    placeholder(BROWN, ["Spoon lift", "(pending)"], accent=CREAM),                # 9: pudding brown placeholder
 ]
 
 grid = Image.new("RGB", (GRID, GRID), "white")
