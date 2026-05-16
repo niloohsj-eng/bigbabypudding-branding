@@ -106,22 +106,28 @@ def build_deliveroo_tile():
     img.paste(sleep, ((TILE - sleep.width) // 2, TILE - sleep.height - 60), sleep)
     return img
 
-# Photos
-macro = real(POSTS / "tile_03_macro.png") if (POSTS / "tile_03_macro.png").exists() else placeholder(CREAM, ["Macro", "(pending)"])
-hand_held = real(POSTS / "tile_01_handheld_hero.png") if (POSTS / "tile_01_handheld_hero.png").exists() else placeholder(CREAM, ["Hand-held", "(pending)"])
-process = real(POSTS / "tile_07_process.png") if (POSTS / "tile_07_process.png").exists() else placeholder(BROWN, ["Process", "(pending)"], accent=CREAM)
+# Photos and illustrated tiles
+def use_real_or_placeholder(filename, fallback):
+    p = POSTS / filename
+    return real(p) if p.exists() else fallback
+
+macro = use_real_or_placeholder("tile_03_macro.png", placeholder(CREAM, ["Macro", "(pending)"]))
+hand_held = use_real_or_placeholder("tile_01_handheld_hero.png", placeholder(CREAM, ["Hand-held", "(pending)"]))
+process = use_real_or_placeholder("tile_07_process.png", placeholder(BROWN, ["Process", "(pending)"], accent=CREAM))
+cup_stack = use_real_or_placeholder("tile_03_cup_stack.png", placeholder(BROWN, ["Cup stack", "(pending)"], accent=CREAM))
+notting_hill = use_real_or_placeholder("tile_08_notting_hill.png", placeholder(CREAM, ["Notting Hill", "(pending)"]))
 
 # Grid order matches positions 1-9 (top-left to bottom-right)
 grid_positions = [
     macro,                                                                        # 1: pudding cream
     build_logo_tile(),                                                            # 2: graphic
-    placeholder(BROWN, ["Cup stack", "(waiting for", "new cups)"], accent=CREAM), # 3: pudding brown placeholder
+    cup_stack,                                                                    # 3: pudding brown (lid illustration)
     build_peel_w11_tile(),                                                        # 4: graphic
     hand_held,                                                                    # 5: pudding cream (center anchor)
     build_deliveroo_tile(),                                                       # 6: graphic
     process,                                                                      # 7: pudding brown
-    placeholder(CREAM, ["Notting Hill", "street", "(pending)"]),                  # 8: lifestyle cream
-    placeholder(BROWN, ["Spoon lift", "(pending)"], accent=CREAM),                # 9: pudding brown placeholder
+    notting_hill,                                                                 # 8: lifestyle illustration
+    placeholder(BROWN, ["Spoon lift", "(pending)"], accent=CREAM),                # 9: pudding brown placeholder (kept as is)
 ]
 
 grid = Image.new("RGB", (GRID, GRID), "white")
