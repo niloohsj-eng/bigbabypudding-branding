@@ -79,20 +79,13 @@ def add_brown_baseline(img, y_from_bottom=80, width=5, length_ratio=0.45):
 
 def build_logo_tile():
     img = Image.new("RGB", (TILE, TILE), CREAM)
-    d = ImageDraw.Draw(img)
-    # Soft pastel-pink halo behind the logo (warm welcome)
-    halo_cx, halo_cy = TILE // 2, TILE // 2 - 30
-    halo_r = 260
-    d.ellipse([halo_cx - halo_r, halo_cy - halo_r, halo_cx + halo_r, halo_cy + halo_r],
-              fill=SOFT_PINK)
-    # Logo on top
     a = Image.open(B / "Logo/Logo_w_Character.png").convert("RGBA")
     target_w = int(TILE * 0.72)
     ratio = target_w / a.width
     a = a.resize((target_w, int(a.height * ratio)), Image.LANCZOS)
     img.paste(a, ((TILE - a.width) // 2, (TILE - a.height) // 2 - 30), a)
-    # Brown baseline + tagline
     add_brown_baseline(img, y_from_bottom=120, width=5, length_ratio=0.35)
+    d = ImageDraw.Draw(img)
     f = font(34)
     tag = "Notting Hill, W8"
     bbox = d.textbbox((0, 0), tag, font=f)
@@ -101,16 +94,11 @@ def build_logo_tile():
 
 def build_peel_w11_tile():
     img = Image.new("RGB", (TILE, TILE), CREAM)
-    d = ImageDraw.Draw(img)
-    # Soft pastel-blue circle behind the peel (like a stage spotlight)
-    halo_cx, halo_cy = TILE // 2, 280
-    halo_r = 200
-    d.ellipse([halo_cx - halo_r, halo_cy - halo_r, halo_cx + halo_r, halo_cy + halo_r],
-              fill=SOFT_BLUE)
     peel = Image.open(B / "Little Bananas/Banana_3.png").convert("RGBA")
     ratio = (TILE * 0.50) / peel.width
     peel = peel.resize((int(peel.width * ratio), int(peel.height * ratio)), Image.LANCZOS)
     img.paste(peel, ((TILE - peel.width) // 2, 110), peel)
+    d = ImageDraw.Draw(img)
     f = font(58)
     text = "Made fresh in W8."
     bbox = d.textbbox((0, 0), text, font=f)
@@ -121,11 +109,6 @@ def build_peel_w11_tile():
 def build_deliveroo_tile():
     img = Image.new("RGB", (TILE, TILE), CREAM)
     d = ImageDraw.Draw(img)
-    # Soft pastel-peach rounded rectangle "ticket" around the text block
-    ticket_x0, ticket_y0 = 100, 50
-    ticket_x1, ticket_y1 = TILE - 100, 290
-    d.rounded_rectangle([ticket_x0, ticket_y0, ticket_x1, ticket_y1],
-                        radius=30, fill=SOFT_PEACH)
     f1 = font(62)
     f2 = font(44)
     text_block = [
@@ -136,11 +119,9 @@ def build_deliveroo_tile():
     for txt, fnt, y in text_block:
         bbox = d.textbbox((0, 0), txt, font=fnt)
         d.text(((TILE - (bbox[2] - bbox[0])) // 2, y), txt, fill=BROWN, font=fnt)
-    # Subtle brown divider between text and banana
-    div_y = 340
+    div_y = 320
     div_len = int(TILE * 0.30)
     d.line([((TILE - div_len) // 2, div_y), ((TILE + div_len) // 2, div_y)], fill=BROWN, width=4)
-    # Banana — bottom half
     sleep = Image.open(B / "Little Bananas/Banana_1.png").convert("RGBA")
     target_w = int(TILE * 0.32)
     ratio = target_w / sleep.width
