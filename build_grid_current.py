@@ -78,7 +78,7 @@ def build_peel_w11_tile():
     img.paste(peel, ((TILE - peel.width) // 2, 90), peel)
     d = ImageDraw.Draw(img)
     f = font(64)
-    text = "Made fresh in W11."
+    text = "Made fresh in W8."
     bbox = d.textbbox((0, 0), text, font=f)
     d.text(((TILE - (bbox[2] - bbox[0])) // 2, TILE - 160), text, fill=BROWN, font=f)
     return img
