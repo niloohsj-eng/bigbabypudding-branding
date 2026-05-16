@@ -18,21 +18,22 @@ branding/                       Source brand assets
 fonts/
   Bradley Hand Bold.ttf         The only display font used in designs
 
-build_grid_mockup.py            Renders the 3x3 IG grid plan
+build_grid_current.py           Renders the current 3x3 IG grid preview
 build_profile_mockup.py         Renders the full IG profile page (header + bio + grid)
 build_card.py                   Renders the Deliveroo bag-insert business card
-build_shoot_brief.py            Renders the visual shoot brief for the 6 missing tiles
+build_shoot_brief.py            Renders the visual shoot brief for missing photo tiles
 build_post.py                   Auto-removes bg from a phone photo, drops onto brand bg
+build_illustrations.py          Renders the 10 hand-drawn illustration tiles
 
 photos_in/                      Drop raw phone photos here
 photos_out/                     Instagram-ready 1080x1080 PNGs land here
 
-posting_plan.md                 Captions, schedule, and posting order for the 9 tiles
+posting_plan.md                 Captions, schedule, and posting order
 
-grid_mockup.png                 Output: 3x3 grid plan
+grid_current.png                Output: current grid preview
 profile_mockup.png              Output: full IG profile mockup
 card_mockup.png                 Output: business card (UK 85x55mm @ 600dpi)
-shoot_brief.png                 Output: visual brief for the 6 photos you take yourself
+shoot_brief.png                 Output: visual brief for the photos you take yourself
 ```
 
 ## Locked brand rules
