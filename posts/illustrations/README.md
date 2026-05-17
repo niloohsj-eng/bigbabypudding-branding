@@ -1,52 +1,76 @@
 # Illustrations — Hand-drawn series
 
-The signature "Wednesday post" content. Brown line art on cream, occasional yellow accent. Cute and minimal.
-
-**Cadence:** post one per week, ideally Wednesday evening (5–8pm UK).
+The signature Wednesday post content. Brown line art on cream, occasional yellow accent. Cute and minimal.
 
 **Open `_contact_sheet.png` for a full visual index.**
 
-## The 10 illustrations, captions, and best-use notes
+---
 
-| File | Concept | Caption | When to post |
-|---|---|---|---|
-| `illust_01_anatomy.png` | Cup with arrows labeling each layer | *Now you know.* | Pinned post — the product breakdown |
-| `illust_02_step_by_step.png` | 3-panel comic: dip → scoop → empty | *Step-by-step.* | Anytime — universally cute |
-| `illust_03_wafer_face.png` | Single wafer biscuit with a cute face | *Wafer you been all my life?* | Use sparingly — the pun is the whole bit |
-| `illust_04_picky_banana.png` | 3 bananas — green / golden chosen / overripe | **Three walked in. One got hired.** | Quality / ripeness story (LOCKED 2026-05-17) |
-| `illust_05_cream_weather.png` | Sun + cup with cream "steam" | *Cream weather.* | Sunny days, brunch crowd |
-| `illust_06_sunday_in.png` | Rain cloud + cup with umbrella | *Sunday in.* | Rainy Sundays, cosy vibe |
-| `illust_07_clock.png` | Clock showing morning + cup | *Out of the kitchen by eight.* | Monday mornings, batch-day reminders |
-| `illust_08_calendar.png` | Calendar with one Wednesday circled | *Wednesday calls.* | Cornerstone of the series — post every Wednesday |
-| `illust_09_review.png` | Speech bubble + 5 stars over a cup | *They left five stars and a paragraph.* | After getting a great review |
-| `illust_10_lined_up.png` | Queue of bananas at a counter | *The line forms here.* | Busy weeks, sold-out days, anniversaries |
+## 📋 Captions — quick reference
 
-**Captions follow the locked voice rule: suggest a story, never explain one. Max 8 words. Never use indulgent / delicious / yummy / quality / premium. Period at end.**
+| # | Tile | Caption |
+|---|---|---|
+| 01 | Anatomy of a Big Baby | *Now you know.* |
+| 02 | How to Big Baby | *Step-by-step.* |
+| 03 | Wafer face | *Wafer you been all my life?* |
+| 04 | Picky banana | **Three walked in. One got hired.** |
+| 05 | Cream weather | *Cream weather.* |
+| 06 | Sunday in | *Sunday in.* |
+| 07 | Clock | *Out of the kitchen by eight.* |
+| 08 | Calendar | *Wednesday calls.* |
+| 09 | Review stars | *They left five stars and a paragraph.* |
+| 10 | Lined up | *The line forms here.* |
 
-## Caption rules
+---
 
-- End with a period. Definitive, not chatty.
-- Max 8 words for most.
-- One emoji or none. Never two.
-- Never use: indulgent, delicious, yummy, drool, OBSESSED, the goat, hits different.
-- Personality > information.
+## 🗓 When to post each
 
-## Visual rules (already baked into the files)
+| # | Tile | Best moment |
+|---|---|---|
+| 01 | Anatomy | Pinned post — the product breakdown |
+| 02 | Step-by-step | Anytime, universally cute |
+| 03 | Wafer | Sparingly — pun is the whole bit |
+| 04 | Picky banana | Quality / ripeness story |
+| 05 | Cream weather | Sunny days, brunch crowd |
+| 06 | Sunday in | Rainy Sundays, cosy vibe |
+| 07 | Clock | Monday mornings, batch-day reminders |
+| 08 | Calendar | Cornerstone — post every Wednesday |
+| 09 | Review stars | After getting a great review |
+| 10 | Lined up | Busy weeks, sold-out days, anniversaries |
+
+---
+
+## ✍️ Caption voice rule
+
+**Suggest a story, never explain one.**
+
+- Max 8 words. 6 is the sweet spot.
+- Never list quality bullets. Never explain the brand.
+- Give ingredients personality. Slight mystery > full information.
+- Period at the end.
+- **Never use:** indulgent, delicious, yummy, drool, OBSESSED, quality, premium, hand-picked.
+- **Examples of the voice:** *"Three walked in. One got hired." / "Auditions every morning." / "Most don't make the cut." / "Sorry, green ones." / "Goldilocks works here."*
+
+---
+
+## 🎨 Visual rules
 
 - Cream `#fffae2` background
 - Brown `#39251c` line art
 - Max ONE yellow element per tile
-- One subject + breathing room
-- Bradley Hand Bold for any text, period at end of titles
+- One subject per tile, lots of breathing room
+- Bradley Hand Bold for title text, period at end
 
-## How to add new illustrations later
+---
+
+## How to add new illustrations
 
 Edit `build_illustrations.py` at the repo root. Run `python3 build_illustrations.py`. New files appear here. Don't hand-edit the PNGs.
 
-## Workflow when posting
+## Posting workflow
 
 1. Open this folder on Wednesday.
-2. Pick one PNG you haven't posted recently.
-3. Use the suggested caption from the table above.
-4. Schedule the post for 5–8pm UK time.
+2. Pick one PNG you haven't posted recently (or follow the calendar tile and post that one).
+3. Copy the caption from the table above.
+4. Schedule for 5–8pm UK time.
 5. Move the file to `_posted/` (create folder when needed) so you remember what you've used.
