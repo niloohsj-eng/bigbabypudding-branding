@@ -1,6 +1,6 @@
 import { AbsoluteFill, Img, staticFile, useCurrentFrame, useVideoConfig, interpolate, spring, Easing } from "remotion";
 
-const CREAM = "#fffae2";
+const CREAM = "#faf8f0";
 const BROWN = "#39251c";
 const PUDDING_WHITE = "#fff8e6";
 

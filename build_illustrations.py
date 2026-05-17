@@ -13,7 +13,7 @@ FONTS = ROOT / "fonts"
 OUT_DIR = ROOT / "posts" / "illustrations"
 OUT_DIR.mkdir(exist_ok=True)
 
-CREAM = (255, 250, 226)
+CREAM = (250, 248, 240)
 BROWN = (57, 37, 28)
 YELLOW = (255, 226, 86)
 CANVAS = 1080

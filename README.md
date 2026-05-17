@@ -39,7 +39,7 @@ shoot_brief.png                 Output: visual brief for the photos you take you
 ## Locked brand rules
 
 ### Palette (two colors only)
-- `#fffae2` cream — default background
+- `#faf8f0` cream — default background
 - `#39251c` dark brown — typography, character outlines, dark tile backgrounds
 
 Yellow (`#ffe256`) and baby blue (`#c2dff6`) only appear inside the character art and real product photos. Never use them as tile backgrounds.

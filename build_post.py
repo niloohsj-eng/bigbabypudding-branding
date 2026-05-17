@@ -26,7 +26,7 @@ OUT_DIR.mkdir(exist_ok=True)
 
 # Locked palette
 BACKGROUNDS = {
-    "cream": "#fffae2",
+    "cream": "#faf8f0",
     "brown": "#39251c",
 }
 

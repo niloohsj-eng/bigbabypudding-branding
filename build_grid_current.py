@@ -21,7 +21,7 @@ PREVIEW_DIR.mkdir(exist_ok=True)
 OUT = ROOT / "grid_current.png"
 OUT2 = PREVIEW_DIR / "grid_current.png"
 
-CREAM = "#fffae2"
+CREAM = "#faf8f0"
 BROWN = "#39251c"
 # Pastel accents
 SOFT_PEACH = "#f5d8ba"

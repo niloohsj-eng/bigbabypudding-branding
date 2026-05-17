@@ -13,7 +13,7 @@ B = ROOT / "branding"
 FONTS = ROOT / "fonts"
 OUT = ROOT / "card_mockup.png"
 
-CREAM = "#fffae2"
+CREAM = "#faf8f0"
 BROWN = "#39251c"
 
 # UK business card 85x55mm at 600 dpi

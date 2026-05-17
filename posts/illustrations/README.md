@@ -55,7 +55,7 @@ The signature Wednesday post content. Brown line art on cream, occasional yellow
 
 ## 🎨 Visual rules
 
-- Cream `#fffae2` background
+- Cream `#faf8f0` background
 - Brown `#39251c` line art
 - Max ONE yellow element per tile
 - One subject per tile, lots of breathing room

@@ -8,7 +8,7 @@ FONTS = ROOT / "fonts"
 GRID_PNG = ROOT / "grid_mockup.png"
 OUT = ROOT / "profile_mockup.png"
 
-CREAM = "#fffae2"
+CREAM = "#faf8f0"
 BROWN = "#39251c"
 # LOCKED two-color palette: cream + brown only. Yellow + blue + tan + pink not used as backgrounds.
 WHITE = "#ffffff"

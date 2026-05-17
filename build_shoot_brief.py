@@ -14,7 +14,7 @@ B = ROOT / "branding"
 FONTS = ROOT / "fonts"
 OUT = ROOT / "shoot_brief.png"
 
-CREAM = "#fffae2"
+CREAM = "#faf8f0"
 BROWN = "#39251c"
 RULE = "#39251c"
 
