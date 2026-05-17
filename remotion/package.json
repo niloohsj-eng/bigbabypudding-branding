@@ -1,0 +1,21 @@
+{
+  "name": "bigbabypudding-reels",
+  "version": "1.0.0",
+  "description": "Remotion-based reel/video creation for @bigbabypudding",
+  "scripts": {
+    "dev": "remotion studio",
+    "render": "remotion render",
+    "render:sneaky": "remotion render SneakyBanana out/sneaky_banana.mp4",
+    "render:sneaky-reel": "remotion render SneakyBananaReel out/sneaky_banana_reel.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.310",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "remotion": "4.0.310"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.0",
+    "typescript": "5.7.2"
+  }
+}
