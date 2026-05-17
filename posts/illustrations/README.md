@@ -10,16 +10,18 @@ The signature "Wednesday post" content. Brown line art on cream, occasional yell
 
 | File | Concept | Caption | When to post |
 |---|---|---|---|
-| `illust_01_anatomy.png` | Cup with arrows labeling each layer | *Now you know.* | Great as a **pinned post** — explains the product |
+| `illust_01_anatomy.png` | Cup with arrows labeling each layer | *Now you know.* | Pinned post — the product breakdown |
 | `illust_02_step_by_step.png` | 3-panel comic: dip → scoop → empty | *Step-by-step.* | Anytime — universally cute |
 | `illust_03_wafer_face.png` | Single wafer biscuit with a cute face | *Wafer you been all my life?* | Use sparingly — the pun is the whole bit |
-| `illust_04_picky_banana.png` | 3 bananas — green (unripe), golden (perfect, chosen with face), brown-spotted (overripe) | *We're picky for a reason.* | Quality / ripeness story. Suggested caption longer-form: *Unripe = no flavour. Overripe = dark in the pudding. We pick the middle one.* |
+| `illust_04_picky_banana.png` | 3 bananas — green / golden chosen / overripe | **Three walked in. One got hired.** | Quality / ripeness story (LOCKED 2026-05-17) |
 | `illust_05_cream_weather.png` | Sun + cup with cream "steam" | *Cream weather.* | Sunny days, brunch crowd |
-| `illust_06_sunday_in.png` | Rain cloud + cup with umbrella | *Sunday in.* | Rainy Sundays, cozy vibe |
-| `illust_07_clock.png` | Clock showing morning + cup | *Fresh from this morning.* | Monday mornings, batch-day reminders |
-| `illust_08_calendar.png` | Calendar with one Wednesday circled | *Wednesday is a Big Baby day.* | The cornerstone of the series — post one of these *every* Wednesday until habit forms |
-| `illust_09_review.png` | Speech bubble + 5 stars over a cup | *From a recent order.* | After receiving a great review — quote it in the caption |
-| `illust_10_lined_up.png` | Queue of bananas at a counter | *They lined up. So do we.* | Busy weeks, sold-out days, anniversaries |
+| `illust_06_sunday_in.png` | Rain cloud + cup with umbrella | *Sunday in.* | Rainy Sundays, cosy vibe |
+| `illust_07_clock.png` | Clock showing morning + cup | *Out of the kitchen by eight.* | Monday mornings, batch-day reminders |
+| `illust_08_calendar.png` | Calendar with one Wednesday circled | *Wednesday calls.* | Cornerstone of the series — post every Wednesday |
+| `illust_09_review.png` | Speech bubble + 5 stars over a cup | *They left five stars and a paragraph.* | After getting a great review |
+| `illust_10_lined_up.png` | Queue of bananas at a counter | *The line forms here.* | Busy weeks, sold-out days, anniversaries |
+
+**Captions follow the locked voice rule: suggest a story, never explain one. Max 8 words. Never use indulgent / delicious / yummy / quality / premium. Period at end.**
 
 ## Caption rules
 
