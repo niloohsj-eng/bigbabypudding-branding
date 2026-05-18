@@ -130,17 +130,21 @@ process = use_real_or_placeholder("tile_07_process.png", placeholder(BROWN, ["Pr
 cup_stack = use_real_or_placeholder("tile_03_cup_stack.png", placeholder(BROWN, ["Cup stack", "(pending)"], accent=CREAM))
 notting_hill = use_real_or_placeholder("tile_08_notting_hill.png", placeholder(CREAM, ["Notting Hill", "(pending)"]))
 
+# Wafer post (newest) shifts everything down by one slot, dropping the Spoon lift placeholder
+wafer = use_real_or_placeholder("illustrations/illust_03_wafer_face.png",
+                                 placeholder(SOFT_YELLOW_CREAM, ["Wafer", "(pending)"]))
+
 # Grid order matches positions 1-9 (top-left to bottom-right)
 grid_positions = [
-    macro,                                                                        # 1: pudding cream
-    build_logo_tile(),                                                            # 2: graphic
-    cup_stack,                                                                    # 3: pudding brown (lid illustration)
-    build_peel_w11_tile(),                                                        # 4: graphic
-    hand_held,                                                                    # 5: pudding cream (center anchor)
-    build_deliveroo_tile(),                                                       # 6: graphic
-    process,                                                                      # 7: pudding brown
-    notting_hill,                                                                 # 8: lifestyle illustration
-    placeholder(BROWN, ["Spoon lift", "(pending)"], accent=CREAM),                # 9: pudding brown placeholder (kept as is)
+    wafer,                                                                        # 1: wafer illustration (pastel yellow) — newest post
+    macro,                                                                        # 2: pudding cream
+    build_logo_tile(),                                                            # 3: graphic (cream)
+    cup_stack,                                                                    # 4: pudding brown (lid illustration)
+    build_peel_w11_tile(),                                                        # 5: graphic cream (center anchor)
+    hand_held,                                                                    # 6: pudding cream
+    build_deliveroo_tile(),                                                       # 7: graphic cream
+    process,                                                                      # 8: pudding brown
+    notting_hill,                                                                 # 9: lifestyle illustration cream
 ]
 
 grid = Image.new("RGB", (GRID, GRID), "white")
