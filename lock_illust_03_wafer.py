@@ -11,7 +11,7 @@ OUT = REPO / "posts/illustrations/illust_03_wafer_face.png"
 
 CANVAS = 1080
 BROWN = "#39251c"
-PASTEL_YELLOW = "#f0e6bc"  # warm pastel yellow — vanilla vibe, breaks grid monotony
+PASTEL_YELLOW = "#faf8f0"  # matches reel/animation bg for consistency across posts
 NILLA_DEEP = "#b8854d"
 FONT_PATH = str(REPO / "fonts" / "Bradley Hand Bold.ttf")
 
