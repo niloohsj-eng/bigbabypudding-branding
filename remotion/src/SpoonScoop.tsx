@@ -46,6 +46,34 @@ function CreamSurface({ width, height, surfaceY, xPhase = 0 }: { width: number; 
   );
 }
 
+// Pudding blob scooped up with the wafer — a wobbly mound that sits at the wafer base
+function CreamBlob({ cx, cy, opacity = 1 }: { cx: number; cy: number; opacity?: number }) {
+  const w = 280;
+  const h = 110;
+  return (
+    <svg style={{ position: "absolute", left: cx - w / 2, top: cy, opacity }} width={w} height={h}>
+      <path
+        d={`M 8,${h} C 18,${h * 0.5} 60,${h * 0.08} ${w * 0.35},${h * 0.18}
+            C ${w * 0.52},${h * 0.05} ${w * 0.7},${h * 0.12} ${w - 12},${h * 0.55}
+            Q ${w - 6},${h * 0.8} ${w - 8},${h} Z`}
+        fill={CREAM_FILL}
+        stroke={BROWN}
+        strokeWidth={3}
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
+      {/* A tiny drip line on the left side */}
+      <path
+        d={`M ${w * 0.22},${h * 0.85} Q ${w * 0.18},${h * 1.0} ${w * 0.14},${h * 0.92}`}
+        fill="none"
+        stroke={BROWN}
+        strokeWidth={2}
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 // Slightly wobbly circle path — hand-drawn feel, centered at 0,0 radius ~120
 const WAFER_PATH =
   "M 4,-123 C 68,-132 130,-62 126,4 C 122,68 58,128 -3,124 C -66,120 -130,56 -126,-5 C -122,-64 -62,-114 4,-123 Z";
@@ -120,7 +148,7 @@ function Wafer({
   );
 }
 
-function Spoon({ cx, tipY, bowlScale = 1 }: { cx: number; tipY: number; bowlScale?: number }) {
+function Spoon({ cx, tipY, bowlScale = 1, rotation = 0 }: { cx: number; tipY: number; bowlScale?: number; rotation?: number }) {
   const handleW  = 15;
   const handleH  = 310;
   const bowlRx   = 38 * bowlScale;
@@ -128,14 +156,23 @@ function Spoon({ cx, tipY, bowlScale = 1 }: { cx: number; tipY: number; bowlScal
   const svgW     = bowlRx * 2 + 24;
   const svgH     = handleH + bowlRy * 2 + 10;
   const midX     = svgW / 2;
-  const stripeH  = 18; // height of each stripe band
+  const stripeH  = 18;
+  // Pivot rotation around the bowl centre so the bowl stays put while the handle swings
+  const pivotX   = midX;
+  const pivotY   = handleH + bowlRy;
 
   const handlePath = `M ${midX - handleW / 2},8 Q ${midX - handleW / 2 - 3},${handleH / 2} ${midX - handleW / 2},${handleH}
       L ${midX + handleW / 2},${handleH} Q ${midX + handleW / 2 + 3},${handleH / 2} ${midX + handleW / 2},8 Z`;
 
   return (
     <svg
-      style={{ position: "absolute", left: cx - svgW / 2, top: tipY - svgH }}
+      style={{
+        position: "absolute",
+        left: cx - svgW / 2,
+        top: tipY - svgH,
+        transform: `rotate(${rotation}deg)`,
+        transformOrigin: `${pivotX}px ${pivotY}px`,
+      }}
       width={svgW}
       height={svgH}
       viewBox={`0 0 ${svgW} ${svgH}`}
@@ -252,19 +289,22 @@ export const SpoonScoop: React.FC = () => {
       ? Math.sin(frame * 2.0) * 16
       : 0;
 
-  // Wafer shoots up with the spoon — same timing and easing
+  // Wafer sits embedded in the cream: center 60px lower than waferCY so the
+  // bottom ~60px of the wafer is submerged below the cream surface.
+  const waferEmbedY = waferCY + 60;
+
   const waferScoopY = interpolate(
     frame,
     [scoopFrame, goneFrame],
-    [waferCY, -380],
+    [waferEmbedY, -380],
     { easing: Easing.in(Easing.cubic), extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   );
-  // During roll-in the wafer rides on the wave surface; after that use idle/scoop
-  const waferOnWaveY = waveAtX(waferCXAnimated) - 150;
+  // Roll-in: ride the wave surface at the embedded depth (–90 instead of –150)
+  const waferOnWaveY = waveAtX(waferCXAnimated) - 90;
   const waferY = frame < rollEnd
     ? waferOnWaveY
     : frame < scoopFrame
-    ? waferCY + idleBounce
+    ? waferEmbedY + idleBounce
     : waferScoopY;
 
   const waferOpacity = interpolate(frame, [scoopFrame, goneFrame], [1, 0], {
@@ -272,16 +312,40 @@ export const SpoonScoop: React.FC = () => {
     extrapolateRight: "clamp",
   });
 
-  // Spoon descends, hovers at wafer level, then shoots up
+  // Spoon enters from upper-right, tilted, sweeps left as bowl digs into cream
+  const spoonCX = interpolate(
+    frame,
+    [spoonStart, arriveFrame, scoopFrame],
+    [waferCX + 180, waferCX + 30, waferCX],
+    { easing: Easing.out(Easing.cubic), extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+
+  // Tilt: 35° clockwise on entry → -6° (scooping angle) by scoop time
+  const spoonRotation = interpolate(
+    frame,
+    [spoonStart, arriveFrame, scoopFrame, goneFrame],
+    [35, 18, -6, -6],
+    { easing: Easing.inOut(Easing.cubic), extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+
+  // Bowl dips well below the embedded wafer to scoop underneath it
   const spoonTipY = interpolate(
     frame,
     [spoonStart, arriveFrame, scoopFrame, goneFrame],
-    [-80, waferCY + 150, waferCY + 150, -500],
+    [-80, waferEmbedY + 230, waferEmbedY + 230, -500],
     {
       easing: Easing.in(Easing.cubic),
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     }
+  );
+
+  // Wafer tilts slightly as it tips onto the spoon
+  const waferScoopTilt = interpolate(
+    frame,
+    [arriveFrame, scoopFrame, goneFrame],
+    [0, -14, -14],
+    { easing: Easing.out(Easing.cubic), extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   );
 
   // Caption
@@ -296,11 +360,11 @@ export const SpoonScoop: React.FC = () => {
   });
   const captionTranslate = interpolate(captionSpring, [0, 1], [40, 0]);
 
-  // Bowl stays normal while descending, then expands dramatically while hovering
+  // Bowl expands as it scoops (slightly less dramatic — the tilt does more work now)
   const bowlScale = interpolate(
     frame,
     [arriveFrame, scoopFrame],
-    [1, 4.0],
+    [1, 2.8],
     { easing: Easing.out(Easing.cubic), extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   );
 
@@ -313,7 +377,15 @@ export const SpoonScoop: React.FC = () => {
       {/* Cream pudding surface — bottom half, wafer rolls on top */}
       <CreamSurface width={width} height={height} surfaceY={surfaceY} xPhase={xPhase} />
       {/* Spoon behind wafer — renders first so wafer stays in front */}
-      {showSpoon && <Spoon cx={waferCX} tipY={spoonTipY} bowlScale={bowlScale} />}
+      {showSpoon && <Spoon cx={spoonCX} tipY={spoonTipY} bowlScale={bowlScale} rotation={spoonRotation} />}
+      {/* Cream blob — appears as spoon arrives, rides up with the wafer */}
+      {frame >= arriveFrame && frame < goneFrame && (
+        <CreamBlob
+          cx={waferCX}
+          cy={waferY + 90}
+          opacity={waferOpacity}
+        />
+      )}
       {showWafer && (
         <Wafer
           cx={waferCXAnimated}
@@ -322,7 +394,7 @@ export const SpoonScoop: React.FC = () => {
           lookingUp={!panicked && frame >= lookUpFrame - 0.4 * fps && frame < noticeFrame}
           opacity={waferOpacity}
           wiggle={panicWiggle}
-          rotation={waferRotation + lookUp}
+          rotation={waferRotation + lookUp + waferScoopTilt}
         />
       )}
       {frame >= captionStart && (
