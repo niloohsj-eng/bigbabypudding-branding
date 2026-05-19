@@ -6,7 +6,7 @@ import random
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
-REPO = Path("/Users/amir/Desktop/bigbabypudding")
+REPO = Path("/Users/niloofarhsj/Desktop/Big Baby Pudding/bigbabypudding-branding")
 OUT = REPO / "posts/illustrations/illust_03_wafer_face.png"
 
 CANVAS = 1080
@@ -27,17 +27,20 @@ def wobbly_circle_points(cx, cy, r, n=120, jitter=2.0, seed=22):
 
 
 def draw_locked_wafer(d, cx, cy, r=260):
-    """LOCKED wafer: deeper nilla body, single thin brown outline, tiny tight face."""
+    """LOCKED wafer — updated 2026-05-19 to match SpoonScoop character face.
+    Tiny close-together dot eyes, barely-bent mini smile dash."""
     body = wobbly_circle_points(cx, cy, r, n=120, jitter=2.0, seed=22)
     d.polygon(body, fill=NILLA_DEEP)
     out = wobbly_circle_points(cx, cy, r, n=120, jitter=1.8, seed=33)
     d.line(out + [out[0]], fill=BROWN, width=5)
-    eye_r = 11
-    eye_y = cy + 18
-    eye_dx = 50
+    # Eyes: small dots, close together (matching SpoonScoop cx=±16, cy=-8, r=3 scaled by 260/125)
+    eye_r = 6
+    eye_y = cy - 17
+    eye_dx = 33
     d.ellipse([cx - eye_dx - eye_r, eye_y - eye_r, cx - eye_dx + eye_r, eye_y + eye_r], fill=BROWN)
     d.ellipse([cx + eye_dx - eye_r, eye_y - eye_r, cx + eye_dx + eye_r, eye_y + eye_r], fill=BROWN)
-    d.arc([cx - 36, eye_y + 22, cx + 36, eye_y + 68], start=0, end=180, fill=BROWN, width=5)
+    # Smile: tiny barely-bent dash (matching SpoonScoop M -8 28 Q 0 31 8 28 scaled)
+    d.arc([cx - 16, cy + 50, cx + 16, cy + 70], start=15, end=165, fill=BROWN, width=4)
 
 
 img = Image.new("RGB", (CANVAS, CANVAS), PASTEL_YELLOW)
