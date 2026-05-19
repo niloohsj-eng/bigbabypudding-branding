@@ -11,7 +11,7 @@ OUT = REPO / "posts/illustrations/illust_03_wafer_face.png"
 
 CANVAS = 1080
 BROWN = "#39251c"
-PASTEL_YELLOW = "#f0e6bc"
+PASTEL_YELLOW = "#f0e6bc"  # warm pastel yellow — vanilla vibe, breaks grid monotony
 NILLA_DEEP = "#b8854d"
 FONT_PATH = str(REPO / "fonts" / "Bradley Hand Bold.ttf")
 
@@ -32,7 +32,7 @@ def draw_locked_wafer(d, cx, cy, r=260):
     body = wobbly_circle_points(cx, cy, r, n=120, jitter=2.0, seed=22)
     d.polygon(body, fill=NILLA_DEEP)
     out = wobbly_circle_points(cx, cy, r, n=120, jitter=1.8, seed=33)
-    d.line(out + [out[0]], fill=BROWN, width=5)
+    d.line(out + [out[0]], fill=BROWN, width=9)
     # Eyes: small dots, close together (matching SpoonScoop cx=±16, cy=-8, r=3 scaled by 260/125)
     eye_r = 6
     eye_y = cy - 17
