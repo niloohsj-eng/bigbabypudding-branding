@@ -26,30 +26,33 @@ def wobbly_circle_points(cx, cy, r, n=120, jitter=2.0, seed=22):
     return pts
 
 
-def draw_locked_wafer(d, cx, cy, r=260):
-    """LOCKED wafer — updated 2026-05-19 to match SpoonScoop character face.
-    Tiny close-together dot eyes, barely-bent mini smile dash."""
+def draw_locked_wafer(d, cx, cy, r=180):
+    """LOCKED wafer — HeyTea minimalism update 2026-05-19.
+    Smaller (r=180), more breathing room, face scaled accordingly."""
+    s = r / 125  # scale factor from SpoonScoop SVG coords
     body = wobbly_circle_points(cx, cy, r, n=120, jitter=2.0, seed=22)
     d.polygon(body, fill=NILLA_DEEP)
     out = wobbly_circle_points(cx, cy, r, n=120, jitter=1.8, seed=33)
-    d.line(out + [out[0]], fill=BROWN, width=9)
-    # Eyes: small dots, close together (matching SpoonScoop cx=±16, cy=-8, r=3 scaled by 260/125)
-    eye_r = 6
-    eye_y = cy - 17
-    eye_dx = 33
+    d.line(out + [out[0]], fill=BROWN, width=7)
+    # Eyes scaled from SpoonScoop (cx=±16, cy=-8, r=3)
+    eye_r  = max(3, round(3 * s))
+    eye_dx = round(16 * s)
+    eye_y  = cy - round(8 * s)
     d.ellipse([cx - eye_dx - eye_r, eye_y - eye_r, cx - eye_dx + eye_r, eye_y + eye_r], fill=BROWN)
     d.ellipse([cx + eye_dx - eye_r, eye_y - eye_r, cx + eye_dx + eye_r, eye_y + eye_r], fill=BROWN)
-    # Smile: tiny barely-bent dash (matching SpoonScoop M -8 28 Q 0 31 8 28 scaled)
-    d.arc([cx - 16, cy + 50, cx + 16, cy + 70], start=15, end=165, fill=BROWN, width=4)
+    # Smile scaled from SpoonScoop (M -8 28 Q 0 31 8 28)
+    sm_w = round(16 * s)
+    sm_y = cy + round(28 * s)
+    d.arc([cx - sm_w, sm_y, cx + sm_w, sm_y + round(10 * s)], start=15, end=165, fill=BROWN, width=3)
 
 
 img = Image.new("RGB", (CANVAS, CANVAS), PASTEL_YELLOW)
 d = ImageDraw.Draw(img)
-font = ImageFont.truetype(FONT_PATH, 70)
+font = ImageFont.truetype(FONT_PATH, 58)  # smaller text — more breathing room
 text = "Wafer you been all my life?"
 bbox = d.textbbox((0, 0), text, font=font)
 tw = bbox[2] - bbox[0]
-d.text(((CANVAS - tw) // 2, 130), text, font=font, fill=BROWN)
-draw_locked_wafer(d, cx=CANVAS // 2, cy=CANVAS // 2 + 110)
+d.text(((CANVAS - tw) // 2, 160), text, font=font, fill=BROWN)
+draw_locked_wafer(d, cx=CANVAS // 2, cy=CANVAS // 2 + 140)  # floats lower, more space above
 img.save(OUT, quality=95)
 print(f"Locked: {OUT}")
