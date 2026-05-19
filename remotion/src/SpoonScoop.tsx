@@ -46,26 +46,42 @@ function CreamSurface({ width, height, surfaceY, xPhase = 0 }: { width: number; 
   );
 }
 
-// Cream pull — a tapered shape rooted at the cream surface that stretches up as the wafer rises.
-// Bottom is wide and anchored to the pudding; top is narrow and attached to the wafer base.
+// Cream pull — soft pudding blob rooted at the cream surface, stretches as wafer rises.
+// No hard outline so it blends with the cream body; a swirl inside reads as pudding texture.
 function CreamPull({ cx, topY, bottomY, opacity = 1 }: { cx: number; topY: number; bottomY: number; opacity?: number }) {
   const h = bottomY - topY;
-  if (h <= 2) return null;
-  const topW = 28;
-  const botW = 110;
-  const hw   = botW / 2;
+  if (h <= 4) return null;
+  const hw = 90; // half-width — blob bulges generously
   return (
-    <svg style={{ position: "absolute", left: cx - hw, top: topY, opacity }} width={botW} height={h}>
+    <svg style={{ position: "absolute", left: cx - hw, top: topY, opacity }} width={hw * 2} height={h}>
+      {/* Soft rounded blob — wide at top (near wafer), pinches slightly, wide at base */}
       <path
-        d={`M ${hw - topW / 2},0
-            C ${hw - topW / 2 - 14},${h * 0.35} ${hw - hw + 8},${h * 0.65} ${0},${h}
-            L ${botW},${h}
-            C ${botW - 8},${h * 0.65} ${hw + topW / 2 + 14},${h * 0.35} ${hw + topW / 2},0
+        d={`M ${hw - 44},0
+            C ${hw - 90},${h * 0.25} ${hw - 90},${h * 0.75} ${hw - 70},${h}
+            L ${hw + 70},${h}
+            C ${hw + 90},${h * 0.75} ${hw + 90},${h * 0.25} ${hw + 44},0
             Z`}
         fill={CREAM_FILL}
         stroke={BROWN}
-        strokeWidth={2.5}
+        strokeWidth={1.5}
+        strokeOpacity={0.3}
         strokeLinejoin="round"
+      />
+      {/* Cream swirl mark inside — same style as the pudding surface swirls */}
+      <path
+        d={`M ${hw - 28},${h * 0.35} Q ${hw},${h * 0.18} ${hw + 28},${h * 0.35}`}
+        fill="none"
+        stroke={BROWN}
+        strokeWidth={2}
+        strokeOpacity={0.45}
+        strokeLinecap="round"
+      />
+      <path
+        d={`M ${hw - 22},${h * 0.62} Q ${hw},${h * 0.48} ${hw + 22},${h * 0.62}`}
+        fill="none"
+        stroke={BROWN}
+        strokeWidth={2}
+        strokeOpacity={0.45}
         strokeLinecap="round"
       />
     </svg>
