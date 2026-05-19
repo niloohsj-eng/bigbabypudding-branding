@@ -46,28 +46,26 @@ function CreamSurface({ width, height, surfaceY, xPhase = 0 }: { width: number; 
   );
 }
 
-// Pudding blob scooped up with the wafer — a wobbly mound that sits at the wafer base
-function CreamBlob({ cx, cy, opacity = 1 }: { cx: number; cy: number; opacity?: number }) {
-  const w = 280;
-  const h = 110;
+// Cream pull — a tapered shape rooted at the cream surface that stretches up as the wafer rises.
+// Bottom is wide and anchored to the pudding; top is narrow and attached to the wafer base.
+function CreamPull({ cx, topY, bottomY, opacity = 1 }: { cx: number; topY: number; bottomY: number; opacity?: number }) {
+  const h = bottomY - topY;
+  if (h <= 2) return null;
+  const topW = 28;
+  const botW = 110;
+  const hw   = botW / 2;
   return (
-    <svg style={{ position: "absolute", left: cx - w / 2, top: cy, opacity }} width={w} height={h}>
+    <svg style={{ position: "absolute", left: cx - hw, top: topY, opacity }} width={botW} height={h}>
       <path
-        d={`M 8,${h} C 18,${h * 0.5} 60,${h * 0.08} ${w * 0.35},${h * 0.18}
-            C ${w * 0.52},${h * 0.05} ${w * 0.7},${h * 0.12} ${w - 12},${h * 0.55}
-            Q ${w - 6},${h * 0.8} ${w - 8},${h} Z`}
+        d={`M ${hw - topW / 2},0
+            C ${hw - topW / 2 - 14},${h * 0.35} ${hw - hw + 8},${h * 0.65} ${0},${h}
+            L ${botW},${h}
+            C ${botW - 8},${h * 0.65} ${hw + topW / 2 + 14},${h * 0.35} ${hw + topW / 2},0
+            Z`}
         fill={CREAM_FILL}
         stroke={BROWN}
-        strokeWidth={3}
+        strokeWidth={2.5}
         strokeLinejoin="round"
-        strokeLinecap="round"
-      />
-      {/* A tiny drip line on the left side */}
-      <path
-        d={`M ${w * 0.22},${h * 0.85} Q ${w * 0.18},${h * 1.0} ${w * 0.14},${h * 0.92}`}
-        fill="none"
-        stroke={BROWN}
-        strokeWidth={2}
         strokeLinecap="round"
       />
     </svg>
@@ -378,11 +376,12 @@ export const SpoonScoop: React.FC = () => {
       <CreamSurface width={width} height={height} surfaceY={surfaceY} xPhase={xPhase} />
       {/* Spoon behind wafer — renders first so wafer stays in front */}
       {showSpoon && <Spoon cx={spoonCX} tipY={spoonTipY} bowlScale={bowlScale} rotation={spoonRotation} />}
-      {/* Cream blob — appears as spoon arrives, rides up with the wafer */}
+      {/* Cream pull — tapered shape rooted at cream surface, stretches up with wafer */}
       {frame >= arriveFrame && frame < goneFrame && (
-        <CreamBlob
+        <CreamPull
           cx={waferCX}
-          cy={waferY + 90}
+          topY={waferY + 120}
+          bottomY={waveAtX(waferCX)}
           opacity={waferOpacity}
         />
       )}
