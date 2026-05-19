@@ -48,7 +48,7 @@ def draw_locked_wafer(d, cx, cy, r=180):
 
 img = Image.new("RGB", (CANVAS, CANVAS), PASTEL_YELLOW)
 d = ImageDraw.Draw(img)
-font = ImageFont.truetype(FONT_PATH, 58)  # smaller text — more breathing room
+font = ImageFont.truetype(FONT_PATH, 78)  # matches Today's batch. visual weight
 text = "Wafer you been all my life?"
 bbox = d.textbbox((0, 0), text, font=font)
 tw = bbox[2] - bbox[0]
